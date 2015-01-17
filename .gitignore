@@ -46,4 +46,11 @@ bower.json
 #Ignore pow enironment settings
 .powenv
 
+# Temp files
 *~
+
+# Ignore solr stuff
+solr/*/data
+*.pid
+
+config/database.yml
