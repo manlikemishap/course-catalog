@@ -3,7 +3,7 @@ class CreateDepartments < ActiveRecord::Migration
 		create_table :departments do |t|
 			t.integer :division
 			t.string :name
-			t.string :abbrev
+			t.string :abbreviation
 			
 			t.timestamps null: false
 		end

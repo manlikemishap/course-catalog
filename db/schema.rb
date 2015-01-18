@@ -11,16 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117073030) do
+ActiveRecord::Schema.define(version: 20150117073023) do
 
   create_table "courses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "courses_departments", force: :cascade do |t|
-    t.integer "course_id",     limit: 4
-    t.integer "department_id", limit: 4
+    t.string   "williams_id",         limit: 6
+    t.string   "offered",             limit: 255
+    t.string   "last_offered",        limit: 255
+    t.string   "numberings",          limit: 255
+    t.string   "title",               limit: 255
+    t.boolean  "d",                   limit: 1
+    t.boolean  "w",                   limit: 1
+    t.boolean  "q",                   limit: 1
+    t.text     "description",         limit: 65535
+    t.string   "format",              limit: 50
+    t.string   "eval",                limit: 255
+    t.string   "prereqs",             limit: 255
+    t.string   "preferences",         limit: 255
+    t.integer  "enrollment_limit",    limit: 4
+    t.integer  "expected_enrollment", limit: 4
+    t.string   "department_notes",    limit: 255
+    t.string   "distribution_notes",  limit: 255
+    t.string   "extra_info",          limit: 255
+    t.string   "extra_info_2",        limit: 255
+    t.string   "fees",                limit: 255
+    t.string   "attributes",          limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "courses_professors", force: :cascade do |t|
@@ -29,11 +45,11 @@ ActiveRecord::Schema.define(version: 20150117073030) do
   end
 
   create_table "departments", force: :cascade do |t|
-    t.integer  "division",   limit: 4
-    t.string   "name",       limit: 255
-    t.string   "abbrev",     limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "division",     limit: 4
+    t.string   "name",         limit: 255
+    t.string   "abbreviation", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "professors", force: :cascade do |t|
