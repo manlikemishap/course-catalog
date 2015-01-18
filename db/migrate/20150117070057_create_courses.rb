@@ -7,6 +7,8 @@ class CreateCourses < ActiveRecord::Migration
     	# The 6 digit course id in the catalog, like 018650
     	t.string :williams_id, limit: 6
 
+        t.string :semester
+
     	t.string :offered
     	t.string :last_offered
 
@@ -41,7 +43,8 @@ class CreateCourses < ActiveRecord::Migration
     	t.string :fees
 
     	# Serialized. Will likely become its own table
-    	t.string :attributes
+        # Also has to be called attrs because attributes is special
+    	t.string :attrs
 
       t.timestamps null: false
     end
