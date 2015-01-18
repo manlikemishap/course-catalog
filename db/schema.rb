@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117073023) do
+ActiveRecord::Schema.define(version: 20150118061409) do
+
+  create_table "components", force: :cascade do |t|
+    t.string   "type",       limit: 255
+    t.integer  "course_id",  limit: 4
+    t.string   "days",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string   "williams_id",         limit: 6
+    t.string   "semester",            limit: 255
     t.string   "offered",             limit: 255
     t.string   "last_offered",        limit: 255
-    t.string   "numberings",          limit: 255
     t.string   "title",               limit: 255
     t.boolean  "d",                   limit: 1
     t.boolean  "w",                   limit: 1
@@ -34,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150117073023) do
     t.string   "extra_info",          limit: 255
     t.string   "extra_info_2",        limit: 255
     t.string   "fees",                limit: 255
-    t.string   "attributes",          limit: 255
+    t.string   "attrs",               limit: 255
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -57,6 +65,13 @@ ActiveRecord::Schema.define(version: 20150117073023) do
     t.string   "name",          limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.string   "days",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end
