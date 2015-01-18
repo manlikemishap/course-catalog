@@ -10,9 +10,6 @@ class CreateCourses < ActiveRecord::Migration
     	t.string :offered
     	t.string :last_offered
 
-    	# *************************************
-    	t.string :numberings
-
     	t.string :title
 
     	# diversity, writing, quantitative
