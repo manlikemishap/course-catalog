@@ -13,16 +13,24 @@ departments.each do |d|
 										 division:       1 + rand(3) )
 end
 
+# Create courses. Remember that these are independent of professors
+Department.all.each do |d|
+	5.times do 
+		d.courses << Fabricate(:course, department: d)
+	end
+end
+
+# Create some professors
 Department.all.each do |d|
 	5.times do 
 		d.professors << Fabricate(:professor, department: d)
 	end
+end
 
-	20.times do 
-		profs = Professor.all.sample(([1]*10 + [2]*2 + [1]).sample)
-		c = Fabricate(:course, professors: profs, department: d)
-		profs.each do |p|
-			p.courses << c
-		end
-	end
+# For each professor, assign them a section of a course in their department
+# There is some chance that the multiple profs will be assigned the same course
+Professor.all.each do |p|
+	c = p.department.courses.sample
+	c.components << Fabricate([:conference, :lab].sample)
+	c.sections << 
 end
