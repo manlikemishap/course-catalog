@@ -5,3 +5,16 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+departments = JSON.parse(File.read("#{Rails.root}/departments.json"))
+departments.each do |d|
+	Department.create!(name:     			 d["name"],
+										 abbreviation:   d["abbrev"],
+										 division:       1 + rand(3) )
+end
+
+Department.all.each do |d|
+	5.times do 
+		d.courses << Fabricate(:course, department: d)
+	end
+end

@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+gem 'fabrication'
+gem 'faker'
+
 gem 'mysql2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
