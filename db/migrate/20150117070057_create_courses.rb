@@ -12,6 +12,8 @@ class CreateCourses < ActiveRecord::Migration
 
     	t.string :title
 
+        t.string :numberings
+
     	# diversity, writing, quantitative
     	t.boolean :d
     	t.boolean :w

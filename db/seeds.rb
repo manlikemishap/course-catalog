@@ -13,24 +13,31 @@ departments.each do |d|
 										 division:       1 + rand(3) )
 end
 
-# Create courses. Remember that these are independent of professors
+# Remember that these are independent of professors
+# Create non-cross-listed courses
 Department.all.each do |d|
-	5.times do 
-		d.courses << Fabricate(:course, department: d)
+	10.times do 
+		d.courses << Fabricate(:course)
 	end
 end
+
+# Crosslisted with n depts
+(2..4).each do |n|
+	# Create n-crosslisted courses
+	10.times do |i|
+		depts = Department.all.sample(n)
+		c = Fabricate.build(:course)#, departments: depts)
+		depts.each do |d|
+			d.courses << c
+			c.numberings[d.abbreviation] = 101 + rand(398)
+			c.save
+		end
+	end
+end	
 
 # Create some professors
 Department.all.each do |d|
 	5.times do 
 		d.professors << Fabricate(:professor, department: d)
 	end
-end
-
-# For each professor, assign them a section of a course in their department
-# There is some chance that the multiple profs will be assigned the same course
-Professor.all.each do |p|
-	c = p.department.courses.sample
-	c.components << Fabricate([:conference, :lab].sample)
-	c.sections << 
 end

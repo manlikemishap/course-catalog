@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118061409) do
+ActiveRecord::Schema.define(version: 20150119220636) do
 
   create_table "components", force: :cascade do |t|
     t.string   "type",       limit: 255
@@ -21,11 +21,17 @@ ActiveRecord::Schema.define(version: 20150118061409) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "components_professors", force: :cascade do |t|
+    t.integer "component_id", limit: 4
+    t.integer "professor_id", limit: 4
+  end
+
   create_table "courses", force: :cascade do |t|
     t.integer  "department_id",       limit: 4
     t.string   "williams_id",         limit: 6
     t.string   "last_offered",        limit: 255
     t.string   "title",               limit: 255
+    t.string   "numberings",          limit: 255
     t.boolean  "d",                   limit: 1
     t.boolean  "w",                   limit: 1
     t.boolean  "q",                   limit: 1
@@ -46,9 +52,9 @@ ActiveRecord::Schema.define(version: 20150118061409) do
     t.datetime "updated_at",                        null: false
   end
 
-  create_table "courses_professors", force: :cascade do |t|
-    t.integer "course_id",    limit: 4
-    t.integer "professor_id", limit: 4
+  create_table "courses_departments", force: :cascade do |t|
+    t.integer "course_id",     limit: 4
+    t.integer "department_id", limit: 4
   end
 
   create_table "departments", force: :cascade do |t|
@@ -64,6 +70,11 @@ ActiveRecord::Schema.define(version: 20150118061409) do
     t.string   "name",          limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "professors_sections", force: :cascade do |t|
+    t.integer "professor_id", limit: 4
+    t.integer "section_id",   limit: 4
   end
 
   create_table "sections", force: :cascade do |t|

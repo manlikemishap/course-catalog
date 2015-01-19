@@ -1,7 +1,13 @@
 class Course < ActiveRecord::Base
 
-	belongs_to :department
+	serialize :numberings, Hash
+
+	has_and_belongs_to_many :departments
 	has_many :components
 
-	validates :department_id, :williams_id, presence: true
+	validates :williams_id, presence: true
+
+	def number
+
+	end
 end
