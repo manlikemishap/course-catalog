@@ -1,15 +1,13 @@
 class CreateCourses < ActiveRecord::Migration
   def change
     create_table :courses do |t|
-    	# Note it does not reference professor or department because
-    	# it is a HABTM relationship
+    	# Note it does not reference professor because HABTM
+
+        t.references :department
 
     	# The 6 digit course id in the catalog, like 018650
     	t.string :williams_id, limit: 6
 
-        t.string :semester
-
-    	t.string :offered
     	t.string :last_offered
 
     	t.string :title

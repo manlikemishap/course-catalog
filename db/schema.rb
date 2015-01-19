@@ -22,9 +22,8 @@ ActiveRecord::Schema.define(version: 20150118061409) do
   end
 
   create_table "courses", force: :cascade do |t|
+    t.integer  "department_id",       limit: 4
     t.string   "williams_id",         limit: 6
-    t.string   "semester",            limit: 255
-    t.string   "offered",             limit: 255
     t.string   "last_offered",        limit: 255
     t.string   "title",               limit: 255
     t.boolean  "d",                   limit: 1
@@ -69,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150118061409) do
 
   create_table "sections", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
+    t.string   "semester",   limit: 20
     t.string   "days",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
