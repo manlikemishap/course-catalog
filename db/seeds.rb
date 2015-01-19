@@ -15,6 +15,14 @@ end
 
 Department.all.each do |d|
 	5.times do 
-		d.courses << Fabricate(:course, department: d)
+		d.professors << Fabricate(:professor, department: d)
+	end
+
+	20.times do 
+		profs = Professor.all.sample(([1]*10 + [2]*2 + [1]).sample)
+		c = Fabricate(:course, professors: profs, department: d)
+		profs.each do |p|
+			p.courses << c
+		end
 	end
 end

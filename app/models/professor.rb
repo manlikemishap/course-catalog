@@ -1,6 +1,8 @@
 class Professor < ActiveRecord::Base
 
-	has_and_belongs_to_many :courses	
+	belongs_to :department
+	has_and_belongs_to_many :sections
+	has_and_belongs_to_many :components	
 
 	validates :name, presence: true
 end
