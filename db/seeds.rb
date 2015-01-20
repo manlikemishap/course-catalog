@@ -24,7 +24,7 @@ end
 # Create non-cross-listed courses
 Department.all.each do |dept|
 	10.times do 
-		dept.courses << Fabricate(:course)
+		dept.courses << Fabricate(:course, numberings: { dept.abbreviation => 101 + rand(398) })
 	end
 end
 

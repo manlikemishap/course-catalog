@@ -19,5 +19,5 @@ Fabricator(:course) do
 	extra_info					{ [([nil] * 5), Faker::Lorem.sentence].sample }
 	extra_info_2				{ nil }
 	fees								{ "bla bla $" + rand(200).to_s }
-	#attrs								
+	#attrs
 end

@@ -9,7 +9,14 @@ class Course < ActiveRecord::Base
 
 	validates :williams_id, presence: true
 
-	def number
-
+  # Returns the number associated with the primary department
+  # OR the number associated with the given department
+	def number(dept = nil)
+    numberings[(dept || primary_department).abbreviation]
 	end
+
+  def primary_department
+    departments.first
+  end
+
 end
