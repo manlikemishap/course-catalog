@@ -1,10 +1,14 @@
+<!-- Search form -->
 <%= form_tag controller: "home", action: "index" do %>
   <%= search_field_tag :search, params[:search] %>
   <%= submit_tag "Search" %>
 <% end %>
 
+<!-- Display search results on same page -->
 <% if @results %>
   <% @results.each do |course| %>
-    <%= course.title %> <br>
+    <b><%= course.primary_department.abbreviation %> <%= course.number %></b> 
+    <i><%= course.title %></i>
+    <br>
   <% end %>
 <% end %>
