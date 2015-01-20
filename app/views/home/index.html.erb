@@ -4,6 +4,16 @@
   <%= submit_tag "Search" %>
 <% end %>
 
+<% if @hits %>
+  <% @hits.each do |hit, course| %>
+    <%= hit.score %> 
+    <%= course.primary_department.abbreviation %> 
+    <%= course.number %> 
+    <%= course.title %>
+    <br>
+  <% end %>
+<% end %>
+
 <!-- Display search results on same page -->
 <% if @results %>
   <% @results.each do |course| %>
