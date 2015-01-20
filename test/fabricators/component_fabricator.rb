@@ -1,5 +1,5 @@
 Fabricator(:component) do 
-	days { JSON.parse(File.read("#{Rails.root}/times.json")).sample.values.join(" ") }
+	days { JSON.parse(File.read("#{Rails.root}/times.json")).sample.values.join(" ") }	
 end
 
 Fabricator(:lab) do 
