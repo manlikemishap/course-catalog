@@ -54,7 +54,7 @@ Course.all.sample(Course.count / 4).each do |course|
 end
 
 # Give all courses sections, some more than others
-Course.all.sample(Course.count / 4).each do |course|
+Course.all.each do |course|
 	([1] * 10 + [2] * 3 + [3] * 2).sample.times do 
 		section = Fabricate(:section, course: course)
 		([1] * 5 + [2]).sample.times do 

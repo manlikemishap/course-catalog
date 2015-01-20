@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
 
 	has_and_belongs_to_many :departments
 	has_many :components
+  has_many :sections
 	has_many :professors, through: :components
 	has_many :professors, through: :sections
 
