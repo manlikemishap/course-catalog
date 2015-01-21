@@ -2,7 +2,9 @@ class CreateSections < ActiveRecord::Migration
   def change
     create_table :sections do |t|
 
-    	t.references :course
+    	t.references :component
+
+      t.integer :section
 
     	t.string :semester, limit: 20
 
