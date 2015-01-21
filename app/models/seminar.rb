@@ -1,2 +1,2 @@
-class Seminar < ActiveRecord::Base
+class Seminar < Component
 end

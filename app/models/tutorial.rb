@@ -1,2 +1,2 @@
-class Tutorial < ActiveRecord::Base
+class Tutorial < Component
 end

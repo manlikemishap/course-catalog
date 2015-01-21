@@ -1,2 +1,2 @@
-class IndependentStudy < ActiveRecord::Base
+class IndependentStudy < Component
 end

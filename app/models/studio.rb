@@ -1,2 +1,2 @@
-class Studio < ActiveRecord::Base
+class Studio < Component
 end

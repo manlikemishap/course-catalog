@@ -1,2 +1,2 @@
-class Honor < ActiveRecord::Base
+class Honor < Component
 end

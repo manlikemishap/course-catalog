@@ -1,2 +1,2 @@
-class Lecture < ActiveRecord::Base
+class Lecture < Component
 end
