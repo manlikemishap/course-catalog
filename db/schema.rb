@@ -11,19 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119220636) do
+ActiveRecord::Schema.define(version: 20150121060319) do
 
-  create_table "components", force: :cascade do |t|
-    t.string   "type",       limit: 255
-    t.integer  "course_id",  limit: 4
-    t.string   "days",       limit: 255
+  create_table "attrs", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "components_professors", force: :cascade do |t|
-    t.integer "component_id", limit: 4
-    t.integer "professor_id", limit: 4
+  create_table "attrs_courses", force: :cascade do |t|
+    t.integer "attr_id",   limit: 4
+    t.integer "course_id", limit: 4
+  end
+
+  create_table "components", force: :cascade do |t|
+    t.string   "type",       limit: 255
+    t.integer  "course_id",  limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "courses", force: :cascade do |t|
@@ -78,11 +83,12 @@ ActiveRecord::Schema.define(version: 20150119220636) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.integer  "course_id",  limit: 4
-    t.string   "semester",   limit: 20
-    t.string   "days",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "component_id", limit: 4
+    t.integer  "section",      limit: 4
+    t.string   "semester",     limit: 20
+    t.string   "days",         limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
 end

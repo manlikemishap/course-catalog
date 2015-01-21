@@ -42,6 +42,7 @@ end
 	end
 end	
 
+=begin
 # Give some courses components
 Course.all.sample(Course.count / 4).each do |course|
 	comp = Fabricate([:conference, :lab].sample)
@@ -62,3 +63,4 @@ Course.all.each do |course|
 		end
 	end
 end
+=end
