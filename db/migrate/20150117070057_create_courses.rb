@@ -19,9 +19,9 @@ class CreateCourses < ActiveRecord::Migration
     	t.boolean :w
     	t.boolean :q
 
-    	t.text :description, limit: 1000
+    	t.text :description
 
-    	t.string :format, limit: 50
+    	t.string :format
 
     	# This is REQUIREMENTS + EVALUATION METHODOLOGY
     	t.string :eval
