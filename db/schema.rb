@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150121060319) do
     t.string   "williams_id",         limit: 6
     t.string   "last_offered",        limit: 255
     t.string   "title",               limit: 255
+    t.integer  "division",            limit: 4
     t.string   "numberings",          limit: 255
     t.boolean  "d",                   limit: 1
     t.boolean  "w",                   limit: 1

@@ -12,6 +12,10 @@ class CreateCourses < ActiveRecord::Migration
 
     	t.string :title
 
+        # The catalog data itself needs to be more robust for us to support
+        # courses with multiple divisions, so I'm leaving it like this
+        t.integer :division
+
         t.string :numberings
 
     	# diversity, writing, quantitative

@@ -16,6 +16,7 @@ CSV.foreach("catalog1415.csv", headers: true) do |row|
     # The first time this ID appears, it's a course. It SHOULD always be one anyway first 
     course = Course.create!(williams_id:         row["Course ID"],
                             title:               row["Course Title"],
+                            division:            row["Division"].split(" ")[1],
                             d:                  !row["(D)"].blank?,
                             q:                  !row["(Q)"].blank?,
                             w:                  !row["(W)"].blank?,
