@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class SearchController < ApplicationController
 
 	def index
     @pre_fall = Date.today.month >= 3 && Date.today.month <= 9
