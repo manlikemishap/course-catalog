@@ -1,6 +1,4 @@
-<%= Course.count %> courses across 
-<%= Section.count %> sections and 
-<%= Professor.count %> professors
+<%= @results.size %> results
 
 <!-- Search form -->
 <%= form_tag controller: "search", action: "index" do %>

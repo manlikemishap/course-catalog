@@ -31,6 +31,26 @@ class Course < ActiveRecord::Base
     text :format
   end
 
+  def self.where_semester(semester)
+    Course.all.map { |course| course.sections.map { |s| s.semester == semester}.any? ? course : nil }.compact
+  end
+
+  def self.spring
+    Course.where_semester("Spring")    
+  end
+
+  def self.fall
+    Course.where_semester("Fall")
+  end
+
+  def spring?
+    sections.map { |s| s.semester == "Spring" }.any?
+  end
+
+  def fall?
+    sections.map { |s| s.semester == "Fall" }.any?    
+  end
+
   # Returns the number associated with the primary department
   # OR the number associated with the given department
 	def number(dept = nil)

@@ -18,21 +18,19 @@ class SearchController < ApplicationController
       end
     end
 
-    Course.all.each do |course|
+    (semester.nil? ? Course.all : Course.where_semester(semester)).each do |course|
       # Set it to 0 if it hasn't gotten any score yet from query matching
-      @results[course] ||= 0
+      @results[course] ||= 2
 
-      @results[course] += 1 if course.sections.map { |s| s.semester == semester }.any?
+      dists.each { |dist| @results[course] *= 2 if course[dist] }
 
-      dists.each { |dist| @results[course] += 1 if course[dist] }
-
-      divs.each { |div| @results[course] += 1 if course[div] }
+      divs.each { |div| @results[course] *= 2 if course[div] }
 
       # iterate over attr attributes, eg HISTXYZ
-      attrs.each { |attr| @results[course] += 1 if course.attrs.include? attr } if attrs
+      attrs.each { |attr| @results[course] *= 2 if course.attrs.include? attr } if attrs
     end
 
-    @results = @results.sort_by { |k,v| -v }
+    @results = @results.sort_by { |k,v| -(v || 0) }
   end
   
 end
