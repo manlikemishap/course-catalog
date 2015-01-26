@@ -8,29 +8,49 @@ class SearchController < ApplicationController
 
     attrs = params[:attrs].map { |a| Attr.find_by(name: a) }.compact if params[:attrs]
 
-    divs = ["1", "2", "3"].each { |div| div.to_i if params["div"]}.compact
+    divs = ["1", "2", "3"].map { |div| params[div].nil? ? nil : div.to_i }.compact
 
-    # Map course => score
+    # Map course to score
     @results = {}
+
+    t1 = Time.now
+
     if params[:search]
-      Course.search { fulltext params[:search], minimum_match: 1 }.each_hit_with_result do |hit, course|
-        @results[course] = hit.score
+      search = Course.search do 
+        fulltext params[:search], minimum_match: 1
+        with(:semesters).any_of([semester]) if semester
+      end
+      search.each_hit_with_result do |hit, course|
+        @results[course] = 5 * hit.score
       end
     end
 
-    (semester.nil? ? Course.all : Course.where_semester(semester)).each do |course|
-      # Set it to 0 if it hasn't gotten any score yet from query matching
-      @results[course] ||= 2
-
-      dists.each { |dist| @results[course] *= 2 if course[dist] }
-
-      divs.each { |div| @results[course] *= 2 if course[div] }
-
-      # iterate over attr attributes, eg HISTXYZ
-      attrs.each { |attr| @results[course] *= 2 if course.attrs.include? attr } if attrs
+    if dists
+      # They're separated in order to allow boosting. Matching multiple scopes
+      # isn't treated (by Solr) as any better than matching 1
+      dists.each do |dist|
+        search = Course.search do
+          with(dist).any_of(dists)
+        end
+        search.results.each do |course|
+          @results[course] = @results[course].nil? ? 2 : @results[course] * 2
+        end
+      end
     end
 
+    if divs
+      Course.all.each do |course|
+        @results[course] = @results[course].nil? ? 2 : @results[course] * 2 if divs.include?(course.division)
+      end
+    end
+    @divs = divs
+    @f = params["1"]
+
     @results = @results.sort_by { |k,v| -(v || 0) }
+
+    t2 = Time.now
+    @elapsed = (t2 - t1) * 1000.0
+
   end
   
 end

@@ -1,5 +1,5 @@
-<%= @results.size %> results
-
+<%= @results.size %> results in <%= @elapsed %> ms
+<%= @divs %> <%= @f %>
 <!-- Search form -->
 <%= form_tag controller: "search", action: "index" do %>
   <%= search_field_tag :search, params[:search] %>
@@ -10,7 +10,7 @@
 
   <h4 style="margin: 0px">Division</h4>
   <% [1, 2, 3].each do |div| %>
-  <%= check_box_tag div %><%= label_tag div, div.to_s.capitalize %>
+  <%= check_box_tag div %><%= label_tag div, div %>
   <% end %>
 
   <h4 style="margin: 0px">Distribution</h4>

@@ -12,6 +12,15 @@ class Course < ActiveRecord::Base
 	validates :williams_id, presence: true
 
   searchable do
+    # Scoping
+    integer :division, multiple: true
+    string :semesters, multiple: true
+    #boolean :distributions, multiple: true
+    boolean :w
+    boolean :q
+    boolean :d
+
+    # Text searches
     text :title
     text :departments do
       departments.collect { |d| "#{d.name} #{d.abbreviation}" }.join(" ")
@@ -21,7 +30,9 @@ class Course < ActiveRecord::Base
       professors.collect { |p| p.name }.join(" ")
     end
     text :description
-    text :attrs
+    text :attrs do
+
+    end
 
     text :preferences
     text :distribution_notes
@@ -29,6 +40,15 @@ class Course < ActiveRecord::Base
     text :extra_info
     text :extra_info_2
     text :format
+  end
+
+  def distributions
+    # ew
+    [:q, :w, :d].map { |dist| self[dist] == true ? dist : nil }.compact
+  end
+
+  def semesters
+    sections.map { |s| s.semester }.to_set.to_a
   end
 
   def self.where_semester(semester)
