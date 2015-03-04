@@ -66,22 +66,38 @@ CSV.foreach("catalog1415.csv", headers: true) do |row|
   course.save!
 
   # Create component if one of this type doesn't exist for the course
-  course.components << (component =  {"SEM" => Seminar,
-                                      "LEC" => Lecture,
-                                      "STU" => Studio,
-                                      "HON" => Honor,
-                                      "TUT" => Tutorial,
-                                      "LAB" => Lab,
-                                      "IND" => IndependentStudy,
-                                      "CON" => Conference,
-                                      "LSN" => Studio }[row["Component"]].create!(course: course))
-  # Push section to component
-  component.sections << Section.create!(days:       (1..3).map { |i| row["Pat#{i}"].nil? ? nil : row["Pat#{i}"] + " " + row["Start Time#{i}"].to_s + (row["Start Time#{i}"].nil? ? "" : "-") + row["End Time#{i}"].to_s }.compact.join(","),
-                                        semester:   row["Offered"].nil? ? course.sections.last.semester : row["Offered"].split(" ")[0],
-                                        section:    row["Term Sort"] == "1151" ? "Fall" : "Spring",
-                                        professors: (1..6).map { |i| row["Last Name #{i}"].nil? ? nil : row["First Name #{i}"] + " " + row["Last Name #{i}"] }.compact.map { |name| Professor.where(name: name).first_or_create },
-                                        component: component                                         
-                                        )
+
+  componentType =  {"SEM" => Seminar,
+                    "LEC" => Lecture,
+                    "STU" => Studio,
+                    "HON" => Honor,
+                    "TUT" => Tutorial,
+                    "LAB" => Lab,
+                    "IND" => IndependentStudy,
+                    "CON" => Conference,
+                    "LSN" => Studio }[row["Component"]]
+  if !course.components.map { |c| c.type == componentType.to_s }.any?
+    course.components << (component = componentType.create!(course: course))
+
+    if false
+    course.components << (component =  {"SEM" => Seminar,
+                                        "LEC" => Lecture,
+                                        "STU" => Studio,
+                                        "HON" => Honor,
+                                        "TUT" => Tutorial,
+                                        "LAB" => Lab,
+                                        "IND" => IndependentStudy,
+                                        "CON" => Conference,
+                                       "LSN" => Studio }[row["Component"]].create!(course: course))
+    end
+    # Push section to component
+    component.sections << Section.create!(days:       (1..3).map { |i| row["Pat#{i}"].nil? ? nil : row["Pat#{i}"] + " " + row["Start Time#{i}"].to_s + (row["Start Time#{i}"].nil? ? "" : "-") + row["End Time#{i}"].to_s }.compact.join(","),
+                                          semester:   row["Offered"].nil? ? course.sections.last.semester : row["Offered"].split(" ")[0],
+                                          section:    row["Term Sort"] == "1151" ? "Fall" : "Spring",
+                                          professors: (1..6).map { |i| row["Last Name #{i}"].nil? ? nil : row["First Name #{i}"] + " " + row["Last Name #{i}"] }.compact.map { |name| Professor.where(name: name).first_or_create },
+                                          component: component                                         
+                                          )
+  end
 end
 
 

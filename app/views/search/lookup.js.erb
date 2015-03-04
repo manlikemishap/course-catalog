@@ -1,0 +1,40 @@
+var el = document.getElementById("display-course");
+
+if (!el.style.display || el.style.display == "none") {
+	//el.style.display = "inline";
+	el.style.visibility = "visible";
+}
+
+var title = document.getElementById("display-course-title");
+title.innerHTML = "<%= @course.title %>"
+
+var desc = document.getElementById("display-course-description");
+desc.innerHTML = "<%= @course.description %>";
+
+// Remove previously created divs
+var comps = document.getElementsByClassName("display-course-component");
+while (comps.length > 0) {
+	comps[0].parentNode.removeChild(comps[0]);
+}
+
+<% @course.components.each do |component| %>
+	var compDiv = document.createElement("div");
+	compDiv.className = "display-course-component";
+
+	var compType = document.createElement("h6");
+	compType.innerHTML = "<%= component.type[0..2].upcase %>";
+	compDiv.appendChild(compType);
+
+	<% component.sections.each do |section| %>
+		var secDiv = document.createElement("div");
+		secDiv.className = "display-section";
+
+		// Your editor will be confused by this
+		secDiv.innerHTML = "<%= "#{section.semester} #{section.days} #{section.professors.map { |p| p.name }.join(',') }" %>";
+
+		compDiv.appendChild(secDiv);		
+	<% end %>
+
+	el.appendChild(compDiv);
+
+<% end %>

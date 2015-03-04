@@ -54,3 +54,5 @@ solr/*/data
 *.pid
 
 config/database.yml
+
+.DS_Store
