@@ -116,7 +116,32 @@ class SearchController < ApplicationController
       end
     end
 
-    @results = @results.sort_by { |k,v| -(v || 0) }[0..50]
+    @results = @results.sort_by { |k,v| -(v || 0) }
+    if params[:serendipity] && params[:serendipity].to_i > 0
+      # Take top 50 from @results
+      temp = []
+      i = 0
+      @results.each do |result|
+        temp.push(result)
+        if i >= 50
+          break
+        end
+        i += 1
+      end
+
+      n = Course.count
+      3.times do |i|
+        params[:serendipity].to_i.times do
+          loc = i * 10 + rand(10)
+          temp.insert(loc, @results.delete_at(50 + rand(n - 50)))
+          @results[@results[loc]] = -1
+        end
+      end
+    else
+      @results = @results[0..49]
+    end
+
+    
 
     t2 = Time.now
     @elapsed = (t2 - t1) * 1000.0
