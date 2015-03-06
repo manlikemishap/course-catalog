@@ -116,32 +116,47 @@ class SearchController < ApplicationController
       end
     end
 
+
+    limit = 30 # how many things ot return (not including serendipity)
+
+    serendipity = params[:serendipity]
+
     @results = @results.sort_by { |k,v| -(v || 0) }
-    if params[:serendipity] && params[:serendipity].to_i > 0
+    @results = Hash[@results.map {|key, value| [key, value]}]
+
+    if !serendipity.nil? && (serendipity = serendipity.to_i) > 0
       # Take top 50 from @results
       temp = []
       i = 0
-      @results.each do |result|
-        temp.push(result)
-        if i >= 50
+      low = 0 # used to figure out lower bound on the top 50 scores
+      @results.each do |course, score|
+        temp.push(course)
+        low = score
+        if i >= limit
           break
         end
         i += 1
       end
 
-      n = Course.count
-      3.times do |i|
-        params[:serendipity].to_i.times do
-          loc = i * 10 + rand(10)
-          temp.insert(loc, @results.delete_at(50 + rand(n - 50)))
-          @results[@results[loc]] = -1
+      (limit / 10).times do |i|
+        serendipity.times do
+          random = Course.find_by(id: rand(1 + Course.count))
+          if !random.nil?
+            if @results[random].to_i < low # check it isnt in the top <limit> already
+              temp.insert(i * 10 + rand(10), random)
+              @results[random] = -1 # mark it as a serendipity course
+            end
+          end
         end
       end
-    else
-      @results = @results[0..49]
-    end
 
-    
+      x = Hash.new
+      temp.each { |course| x[course] = @results[course] }
+      @results = x
+
+    else
+      @results = @results.to_a[0..29]
+    end
 
     t2 = Time.now
     @elapsed = (t2 - t1) * 1000.0

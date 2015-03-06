@@ -67,15 +67,12 @@
               <% end %>
               
               <div class="row rowpadding">
-                <div class="form-group">
-                    <label class="control-label" for="formInput78">Serendipity</label>
-                    <select id="formInput78" class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </div>
-            </div>              
+                <label class="control-label" for="formInput78">Serendipity</label>
+                <br>
+                <% [0,1,2,3].each do |i| %>
+                <%= i %> <%= radio_button_tag :serendipity, i %>
+                <% end %>
+              </div>             
 
 
             <div class="row rowpadding">
@@ -104,7 +101,11 @@
                                 <% @results.each do |course, score| %>
                                 <tr>
                                     <td><%= "#{course.primary_department.abbreviation} #{course.number}" %></td>
-                                    <td><%= link_to course.title, controller: "search", action: "lookup", remote: true, id: course.id %></td>
+                                    <td>
+                                      <% if score < 0 %><i><% end %>
+                                      <%= link_to course.title, controller: "search", action: "lookup", remote: true, id: course.id %>
+                                      <% if score < 0 %><i><% end %>
+                                    </td>
                                 </tr>
                                 <% end %>
 

@@ -9,4 +9,6 @@ class Section < ActiveRecord::Base
 	def course
 		component.course
 	end
+
+	
 end
