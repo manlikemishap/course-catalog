@@ -8,6 +8,9 @@ if (!el.style.display || el.style.display == "none") {
 var title = document.getElementById("display-course-title");
 title.innerHTML = "<%= @course.title %>"
 
+var xlistings = document.getElementById("display-course-xlistings");
+xlistings.innerHTML	= "<%= @course.xlistings.join(', ') %>";
+
 var desc = document.getElementById("display-course-description");
 desc.innerHTML = "<%= @course.description %>";
 

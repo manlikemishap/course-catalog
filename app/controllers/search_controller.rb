@@ -3,11 +3,8 @@ class SearchController < ApplicationController
   def index
     # Both selected or unselected - same thing
     semester = params[:spring].nil? ? "Fall" : "Spring" if params[:spring].to_i != params[:fall].to_i
-
     dists = [:q, :w, :d].map { |dist| params[dist].nil? ? nil : dist }.compact
-
     attrs = params[:attrs].map { |a| Attr.find_by(name: a) }.compact if params[:attrs]
-
     divs = ["1", "2", "3"].map { |div| params[div].nil? ? nil : div.to_i }.compact
 
     # Map course to score
@@ -93,6 +90,8 @@ class SearchController < ApplicationController
     @elapsed = (t2 - t1) * 1000.0
 
   end
+
+
 
   def lookup
     @course = Course.find_by(id: params[:id])

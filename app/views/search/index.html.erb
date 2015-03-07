@@ -102,6 +102,7 @@
                                 <tr>
                                     <td><%= "#{course.primary_department.abbreviation} #{course.number}" %></td>
                                     <td>
+                                      <b><%= score %></b>
                                       <% if score < 0 %><i><% end %>
                                       <%= link_to course.title, controller: "search", action: "lookup", remote: true, id: course.id %>
                                       <% if score < 0 %><i><% end %>
@@ -116,6 +117,7 @@
 
                     <div id="display-course" class="content-panel" style="visibility: hidden; float: left;  margin-left: 1px; border: 2px solid #707070; width: 50%;">
                         <h3 id="display-course-title"></h3>
+                        <div id="display-course-xlistings"></div>
                         <div id="display-course-description"></div>
                         <h5>Components</h5>
                     </div>
@@ -129,13 +131,8 @@
                 <div class="container center">
                     <a href="#about" class="btn btn-circle page-scroll black bigicon"><i class="fa fa-spin fa-spinner fa-5x animated bigicon"></i></a>
                 </div>
-                <!-- /col-lg-9 END SECTION MIDDLE -->
-                        <!-- **********************************************************************************************************************************************************
-      RIGHT SIDEBAR CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!-- /col-lg-3 -->
+
   </div>
-  <! --/row -->
 </section>
 </section>
 <!--main content end-->

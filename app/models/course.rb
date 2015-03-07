@@ -21,8 +21,8 @@ class Course < ActiveRecord::Base
     boolean :d
 
     # Text searches
-    text :title
-    text :departments do
+    text :title, boost: 4.0
+    text :departments, boost: 6.0 do
       departments.collect { |d| "#{d.name} #{d.abbreviation}" }.join(" ")
       #{}"#{department.name} #{department.abbreviation}"
     end
@@ -40,6 +40,14 @@ class Course < ActiveRecord::Base
     text :extra_info
     text :extra_info_2
     text :format
+  end
+
+  def xlistings
+    departments.map { |dept| "#{dept.abbreviation} #{number(dept)}" }
+  end
+
+  def crosslistings
+    xlistings
   end
 
   def distributions

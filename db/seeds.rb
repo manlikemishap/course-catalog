@@ -54,11 +54,13 @@ CSV.foreach("catalog1415.csv", headers: true) do |row|
   if !dept.courses.include?(course)
     if row["Primary/Secondary"] == "Primary"
       # Primary course to front for crosslists (explicit primary)
-      course.departments.unshift(dept)
-    else
+      #course.departments.unshift(dept)
+      course.primary_department_id = dept.id
+    end
+    #else
       # This also covers non-crosslisted courses
       course.departments.append(dept)
-    end
+    #end
   end
 
   # Hash subject => number
@@ -76,20 +78,11 @@ CSV.foreach("catalog1415.csv", headers: true) do |row|
                     "IND" => IndependentStudy,
                     "CON" => Conference,
                     "LSN" => Studio }[row["Component"]]
+
   if !course.components.map { |c| c.type == componentType.to_s }.any?
+
     course.components << (component = componentType.create!(course: course))
 
-    if false
-    course.components << (component =  {"SEM" => Seminar,
-                                        "LEC" => Lecture,
-                                        "STU" => Studio,
-                                        "HON" => Honor,
-                                        "TUT" => Tutorial,
-                                        "LAB" => Lab,
-                                        "IND" => IndependentStudy,
-                                        "CON" => Conference,
-                                       "LSN" => Studio }[row["Component"]].create!(course: course))
-    end
     # Push section to component
     component.sections << Section.create!(days:       (1..3).map { |i| row["Pat#{i}"].nil? ? nil : row["Pat#{i}"] + " " + row["Start Time#{i}"].to_s + (row["Start Time#{i}"].nil? ? "" : "-") + row["End Time#{i}"].to_s }.compact.join(","),
                                           semester:   row["Offered"].nil? ? course.sections.last.semester : row["Offered"].split(" ")[0],
@@ -98,6 +91,7 @@ CSV.foreach("catalog1415.csv", headers: true) do |row|
                                           component: component                                         
                                           )
   end
+  
 end
 
 

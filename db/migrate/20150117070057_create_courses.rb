@@ -4,6 +4,7 @@ class CreateCourses < ActiveRecord::Migration
     	# Note it does not reference professor because HABTM
 
         t.references :department
+        t.references :primary_department
 
     	# The 6 digit course id in the catalog, like 018650
     	t.string :williams_id, limit: 6
