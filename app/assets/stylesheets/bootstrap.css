@@ -76,7 +76,7 @@ abbr[title]
 b,
 strong
 {
-    font-weight: bold;
+    font-weight: 300;
 }
 
 dfn
@@ -1534,7 +1534,7 @@ h6,
 .h6
 {
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 100;
     line-height: 1.1;
     color: inherit;
 }
@@ -1644,7 +1644,7 @@ h3,
 h4,
 .h4
 {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 h5,
@@ -3504,6 +3504,7 @@ input[type="month"].input-lg
     min-height: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
+
 }
 
 .radio label,

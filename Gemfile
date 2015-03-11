@@ -5,8 +5,8 @@ gem 'sunspot_solr'
 
 gem 'fabrication'
 gem 'faker'
-
-gem 'mysql2'
+gem 'sqlite3'
+#gem 'mysql2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
