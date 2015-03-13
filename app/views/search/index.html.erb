@@ -17,7 +17,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo"><b>WILLIAMS COURSE CATALOG</b></a>
+        <a href="index.html" class="logo" style = "margin: 0px"><h3><strong>WILLIAMS</strong> COURSE CATALOG</h3></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
@@ -40,25 +40,37 @@
                 <div class="row rowpadding">
                   <%= search_field_tag :search, params[:search], class: "form-control" %>
               </div>
-
+              <br>
               <div class="row rowpadding">
+                <div class = "col-sm-5">
                   <h4 style="margin: 0px">Semester</h4>
-                  <%= check_box_tag :fall, "1", pre_fall %><%= label_tag :fall, "Fall" %>
-                  <%= check_box_tag :spring, "1", pre_spring %><%= label_tag :spring, "Spring" %>  
+                </div>
+                <div class ="col-sm-7">
+                  <%= check_box_tag :fall, "1", pre_fall %><%= label_tag :fall, "F" %>
+                  <%= check_box_tag :spring, "1", pre_spring %><%= label_tag :spring, "S" %>  
+                </div>
               </div>
 
               <div class="row rowpadding">
+                <div class ="col-sm-5">
                   <h4 style="margin: 0px">Division</h4>
+                </div>
+                <div class ="col-sm-7">
                   <% [1, 2, 3].each do |div| %>
                   <%= check_box_tag div %><%= label_tag div, div %>
                   <% end %>
+                </div>
               </div>
 
               <div class="row rowpadding">
+                <div class ="col-sm-5">
                   <h4 style="margin: 0px">Distribution</h4>
+                </div>
+                <div class ="col-sm-7">
                   <% [:q, :w, :d].each do |dist| %>
                   <%= check_box_tag dist %><%= label_tag dist, dist.to_s.capitalize %>
                   <% end %>
+                </div>
               </div>
 
               <% if false %>
@@ -67,16 +79,22 @@
               <% end %>
               
               <div class="row rowpadding">
-                <label class="control-label" for="formInput78">Serendipity</label>
-                <br>
-                <% [0,1,2,3].each do |i| %>
-                <%= i %> <%= radio_button_tag :serendipity, i %>
-                <% end %>
+                <div class ="col-sm-5">
+                <label class="control-label" for="formInput78"><h4 style="margin: 0px">Serendipity</h4></label>
+
+                </div>
+                <div class ="col-sm-7" >
+                  <% [1,2,3].each do |i| %>
+                  <%= i %> <%= radio_button_tag :serendipity, i %>
+                  <% end %>
+                </div>
               </div>             
 
-
+<br>
             <div class="row rowpadding">
+              <div class ="col-sm-12" >
               <%= submit_tag "Search" %>
+            </div>
           </div>
           <% end %>
 
@@ -118,11 +136,13 @@
                     </div>
                     <!-- /content-panel -->
 
-                    <div id="display-course" class="content-panel" style="visibility: hidden; float: left;  margin-left: 1px; border: 2px solid #707070; width: 50%;">
-                        <h3 id="display-course-title"></h3>
+                    <div id="display-course" class="content-panel" style="visibility: hidden; float: left;  margin-left: 1px; border: 2px solid #707070; width: 50%; margin: 15px;">
+                      <div style="margin: 15px">
+                        <h3 id="display-course-title" ></h3>
                         <div id="display-course-xlistings"></div>
                         <div id="display-course-description"></div>
                         <h5>Components</h5>
+                      </div>
                     </div>
 
                     <% end %>
