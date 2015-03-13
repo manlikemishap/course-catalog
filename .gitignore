@@ -56,3 +56,6 @@ solr/*/data
 config/database.yml
 
 .DS_Store
+
+Gemfile.lock
+Gemfile
