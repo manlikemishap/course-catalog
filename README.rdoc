@@ -1,3 +1,9 @@
+Encode days by using the blocks in the hours schedule? Like, MWF - G, TR A
+
+Conferences and labs can have multiple time offerings as well.
+
+Maybe have a course have subcourses. Like sections or offerings. So each course has many courses in a sense. There is a master course overlord, and below it are its subofferings that handles sections and also the different lab sections and such.
+
 == README
 
 This README would normally document whatever steps are necessary to get the
