@@ -22,6 +22,13 @@ function createSearchResultBlockForId(id) {
 	var clone = template.cloneNode(true);
 	clone.id = "search-result-" + id;
 	template.parentNode.appendChild(clone);
+	clone.onclick = function() { 
+		$.ajax ({
+			type: "POST",
+			url: "/search/lookup",
+			data: $.param({id: id, authenticity_token: AUTH_TOKEN})
+		});
+	};
 }
 
 
