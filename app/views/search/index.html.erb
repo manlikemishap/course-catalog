@@ -36,90 +36,96 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <%= form_tag controller: "search", action: "index" do %>
+              <%= form_tag({ controller: "search", action: "search" }, { remote: true }) do %>
+
                 <div class="row rowpadding">
                   <%= search_field_tag :search, params[:search], class: "form-control" %>
-              </div>
-              <br>
-              <div class="row rowpadding">
-                <div class = "col-sm-5">
-                  <h4 style="margin: 0px">Semester</h4>
                 </div>
-                <div class ="col-sm-7">
-                  <%= check_box_tag :fall, "1", pre_fall %><%= label_tag :fall, "F" %>
-                  <%= check_box_tag :spring, "1", pre_spring %><%= label_tag :spring, "S" %>  
+                <br>
+                <div class="row rowpadding">
+                  <div class = "col-sm-5">
+                    <h4 style="margin: 0px">Semester</h4>
+                  </div>
+                  <div class ="col-sm-7">
+                    <%= check_box_tag :fall, "1", pre_fall %><%= label_tag :fall, "F" %>
+                    <%= check_box_tag :spring, "1", pre_spring %><%= label_tag :spring, "S" %>  
+                  </div>
                 </div>
-              </div>
 
-              <div class="row rowpadding">
-                <div class ="col-sm-5">
-                  <h4 style="margin: 0px">Division</h4>
+                <div class="row rowpadding">
+                  <div class ="col-sm-5">
+                    <h4 style="margin: 0px">Division</h4>
+                  </div>
+                  <div class ="col-sm-7">
+                    <% [1, 2, 3].each do |div| %>
+                    <%= check_box_tag div %><%= label_tag div, div %>
+                    <% end %>
+                  </div>
                 </div>
-                <div class ="col-sm-7">
-                  <% [1, 2, 3].each do |div| %>
-                  <%= check_box_tag div %><%= label_tag div, div %>
-                  <% end %>
-                </div>
-              </div>
 
-              <div class="row rowpadding">
-                <div class ="col-sm-5">
-                  <h4 style="margin: 0px">Distribution</h4>
+                <div class="row rowpadding">
+                  <div class ="col-sm-5">
+                    <h4 style="margin: 0px">Distribution</h4>
+                  </div>
+                  <div class ="col-sm-7">
+                    <% [:q, :w, :d].each do |dist| %>
+                    <%= check_box_tag dist %><%= label_tag dist, dist.to_s.capitalize %>
+                    <% end %>
+                  </div>
                 </div>
-                <div class ="col-sm-7">
-                  <% [:q, :w, :d].each do |dist| %>
-                  <%= check_box_tag dist %><%= label_tag dist, dist.to_s.capitalize %>
-                  <% end %>
-                </div>
-              </div>
 
-              <% if false %>
-              <h4 style="margin: 0px">Attributes</h4>
-              <%= select_tag :attrs, options_for_select(Attr.all.map{|a| a.name}), include_blank: true, multiple: true %>
-              <% end %>
+                <% if false %>
+                <h4 style="margin: 0px">Attributes</h4>
+                <%= select_tag :attrs, options_for_select(Attr.all.map{|a| a.name}), include_blank: true, multiple: true %>
+                <% end %>
               
+                <div class="row rowpadding">
+                  <div class ="col-sm-5">
+                    <label class="control-label" for="formInput78"><h4 style="margin: 0px">Serendipity</h4></label>
+                  </div>
+                  <div class ="col-sm-7" >
+                    <% [0,1,2,3].each do |i| %>
+                      <%= i %> <%= radio_button_tag :serendipity, i %>
+                    <% end %>
+                  </div>
+                </div>             
+
+                <br>
+
               <div class="row rowpadding">
-                <div class ="col-sm-5">
-                <label class="control-label" for="formInput78"><h4 style="margin: 0px">Serendipity</h4></label>
-
+                <div class ="col-sm-12" >
+                  <%= submit_tag "Search" %>
                 </div>
-                <div class ="col-sm-7" >
-                  <% [0,1,2,3].each do |i| %>
-                  <%= i %> <%= radio_button_tag :serendipity, i %>
-                  <% end %>
-                </div>
-              </div>             
-
-<br>
-            <div class="row rowpadding">
-              <div class ="col-sm-12" >
-              <%= submit_tag "Search" %>
-            </div>
-          </div>
+              </div>
           <% end %>
 
         </ul>
         <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--sidebar end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
 
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper">
             <div class="row">
-                <div class="col-lg-12 main-chart">
-                    <% if @results.any? %>                    
-                    <div id ="search-results" class="content-panel">
-                        <table class="table table-striped table-advance table-hover">
+                <div class="col-lg-12 main-chart">                 
+                    <div id="search-results" class="content-panel">
+                        <table class="table table-striped table-advance table-hover" id="search-results-table">
                             <h4><i class="fa fa-angle-right"></i>Search Results</h4>
-                            <h5><strong><%= @results.size %> results  in <%= @elapsed / 100 %>s </strong></h5>
+                            <h5><strong><%#= @results.size %> results  in <%#= @elapsed / 100 %>s </strong></h5>
 
                             <tbody>
+                              <tr id="search-result-template" style="display: hidden">
+                                <td class="dept-num"></td>
+                                <td class="title"></td>
+                                <td class="division"></td>
+                                <td class="attributes"></td>
+                              </tr>
 
                               <% if false %><% @results.each do |id, score| %><div>id <%= "#{id}: #{score}" %></div><% end %><% end %>
 
-                              <% if true %>
+                              <% if false %>
                                 <% @results.each do |course, score| %>
                                 <tr>
                                     <td><%= "#{course.primary_department.abbreviation} #{course.number}" %></td>
@@ -134,7 +140,7 @@
                                     </td>
                                 </tr>
                                 <% end %>
-                               <% end %>
+                              <% end %>
 
 
                             </tbody>
@@ -150,8 +156,6 @@
                         <h5>Components</h5>
                       </div>
                     </div>
-
-                    <% end %>
 
                 </div>
                 <!-- /col-md-12 -->
@@ -169,70 +173,5 @@
 <!--footer end-->
 </section>
 
-<script>
-if (top.location != location) {
-    top.location.href = document.location.href ;
-}
-$(function(){
-    window.prettyPrint && prettyPrint();
-
-    $('#sl1').slider({
-      formater: function(value) {
-        return 'Current value: '+value;
-    }
-});
-    $('#sl2').slider();
-
-    var RGBChange = function() {
-      $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
-  };
-
-  var r = $('#R').slider()
-  .on('slide', RGBChange)
-  .data('slider');
-  var g = $('#G').slider()
-  .on('slide', RGBChange)
-  .data('slider');
-  var b = $('#B').slider()
-  .on('slide', RGBChange)
-  .data('slider');
-
-  $('#eg input').slider();
-});
-</script>
-<script type="application/javascript">
-$(document).ready(function () {
-    $("#date-popover").popover({html: true, trigger: "manual"});
-    $("#date-popover").hide();
-    $("#date-popover").click(function (e) {
-        $(this).hide();
-    });
-
-    $("#my-calendar").zabuto_calendar({
-        action: function () {
-            return myDateFunction(this.id, false);
-        },
-        action_nav: function () {
-            return myNavFunction(this.id);
-        },
-        ajax: {
-            url: "show_data.php?action=1",
-            modal: true
-        },
-        legend: [
-        {type: "text", label: "Special event", badge: "00"},
-        {type: "block", label: "Regular event", }
-        ]
-    });
-});
-
-
-function myNavFunction(id) {
-    $("#date-popover").hide();
-    var nav = $("#" + id).data("navigation");
-    var to = $("#" + id).data("to");
-    console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-}
-</script>
 </body>
 </html>

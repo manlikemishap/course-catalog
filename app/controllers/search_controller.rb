@@ -1,6 +1,9 @@
 class SearchController < ApplicationController
 
   def index
+  end
+
+  def search
     # Both selected or unselected - same thing
     semester = params[:spring].nil? ? "Fall" : "Spring" if params[:spring].to_i != params[:fall].to_i
     dists = [:q, :w, :d].map { |dist| params[dist].nil? ? nil : dist }.compact
@@ -62,10 +65,14 @@ class SearchController < ApplicationController
       end
     end
 
-    @results = @results[0..20].map { |id, score| [Course.find(id), score] }
+    #@results = @results[0..20].map { |id, score| [Course.find(id), score] }
 
     t2 = Time.now
     @elapsed = (t2 - t1) * 1000.0
+
+    respond_to do |format|
+      format.js {}
+    end
 
   end
 
@@ -79,12 +86,10 @@ class SearchController < ApplicationController
                :q      => match.q,
                :w      => match.w,
                :d      => match.d,
-               :div    => match.division}
-    respond_to do |format|
-      format.js {}
-    end           
+               :div    => match.division, 
+               :id     => match.id }
+    render json: @course
   end
-
 
   def lookup
     @course = Course.find_by(id: params[:id])

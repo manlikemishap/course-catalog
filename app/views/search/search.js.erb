@@ -1,0 +1,10 @@
+lastSearchResults = <%= @results.to_json %>;
+
+// remove previous results
+var children = document.getElementById("search-result-template").parentNode.children
+while (children.length > 1) {
+   children[1].parentNode.removeChild(children[1]);
+}
+
+// Display first 20 results
+displayNextSearchResults(20);
