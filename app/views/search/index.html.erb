@@ -117,9 +117,9 @@
 
                             <tbody>
 
-                              <% @results.each do |id, score| %><div>id <%= "#{id}: #{score}" %></div><% end %>
+                              <% if false %><% @results.each do |id, score| %><div>id <%= "#{id}: #{score}" %></div><% end %><% end %>
 
-                              <% if false %>
+                              <% if true %>
                                 <% @results.each do |course, score| %>
                                 <tr>
                                     <td><%= "#{course.primary_department.abbreviation} #{course.number}" %></td>

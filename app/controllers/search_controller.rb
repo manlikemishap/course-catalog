@@ -48,7 +48,8 @@ class SearchController < ApplicationController
     end
 
     # Check if there is any point to sorting (more than 1 thingy specified or multiple thingies for a single thingy)
-    if divs.size > 1 || dists.size > 1 || (divs.size > 0 && dists.size > 0) || params[:search]
+    #if divs.size > 1 || dists.size > 1 || (divs.size > 0 && dists.size > 0) || params[:search]
+    if divs.size + dists.size >= 2 || params[:search]
 
       @results = @results.sort_by { |k,v| -(v || 0) }
       @results = Hash[@results.map {|key, value| [key, value]}]
@@ -59,8 +60,9 @@ class SearchController < ApplicationController
       else
         @results = @results.to_a
       end
-
     end
+
+    @results = @results[0..20].map { |id, score| [Course.find(id), score] }
 
     t2 = Time.now
     @elapsed = (t2 - t1) * 1000.0
@@ -68,11 +70,25 @@ class SearchController < ApplicationController
   end
 
 
+  def info_for_result
+    match = Course.find_by(id: params[:id])
+    # Return only the necessary info to save time    
+    @course = {:dept   => match.primary_department.abbreviation,
+               :number => match.number,
+               :title  => match.title,
+               :q      => match.q,
+               :w      => match.w,
+               :d      => match.d,
+               :div    => match.division}
+    respond_to do |format|
+      format.js {}
+    end           
+  end
+
 
   def lookup
     @course = Course.find_by(id: params[:id])
     respond_to do |format|
-      #format.json { render :json => results.to_json }
       format.js {}
     end
   end
@@ -85,7 +101,7 @@ class SearchController < ApplicationController
     # Take top 50 from @results
     temp = []
     i = 0
-    low = 0 # used to figure out lower bound on the top 50 scores
+    low = 0 # used to figure out lower bound on the top <limit> scores
     results.each do |course, score|
       temp.push(course)
       low = score
