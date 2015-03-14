@@ -54,7 +54,8 @@ class SearchController < ApplicationController
     #if divs.size > 1 || dists.size > 1 || (divs.size > 0 && dists.size > 0) || params[:search]
     if divs.size + dists.size >= 2 || params[:search]
 
-      @results = @results.sort_by { |k,v| -(v || 0) }
+      # shoudl randomize tiebreaker
+      @results = @results.sort_by { |k,v| -(v || 0) }      
       @results = Hash[@results.map {|key, value| [key, value]}]
 
       serendipity = params[:serendipity]
