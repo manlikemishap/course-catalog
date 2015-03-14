@@ -35,7 +35,7 @@ function createSearchResultBlockForId(id) {
 	clone.onclick = function() { 
 		$.ajax ({
 			type: "POST",
-			url: "/search/lookup",
+			url: "search/lookup",
 			data: $.param({id: id, authenticity_token: AUTH_TOKEN})
 		});
 	};
@@ -47,7 +47,7 @@ function createSearchResultBlockForId(id) {
 function searchResultInfoForId(id) {
 	$.ajax ({
 		type: "POST",
-		url: "/search/info_for_result",
+		url: "search/info_for_result",
 		data: $.param({id: id, authenticity_token: AUTH_TOKEN}),
 		success: displaySearchResult
 	});
