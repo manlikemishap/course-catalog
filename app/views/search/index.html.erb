@@ -112,19 +112,23 @@
                 <div class="col-lg-12 main-chart">                 
                     <div id="search-results" class="content-panel">
                         <table class="table table-striped table-advance table-hover" id="search-results-table">
-                            <h4><i class="fa fa-angle-right"></i>Search Results</h4>
+                            <h4 id="results-count"><i class="fa fa-angle-right"></i></h4>
+
                             <tbody>
-                              <tr id="search-result-template" style="display: hidden">
+                              <tr id="search-result-template" style="display: none; cursor: pointer;">
                                 <td class="dept-num"></td>
                                 <td class="title"></td>
                                 <td class="division"></td>
                                 <td class="attributes"></td>
                               </tr>
                             </tbody>
+
                         </table>
+                        <div id="show-more-results" style="display: none; cursor: pointer;" onclick="displayNextSearchResults(20);">SHOW MORE</div>
                     </div>
                     <!-- /content-panel -->
 
+                    <!-- Hidden side thing which displays course info on click -->
                     <div id="display-course" class="content-panel" style="visibility: hidden; float: left;  margin-left: 1px; border: 2px solid #707070; width: 50%; margin: 15px;">
                       <div style="margin: 15px">
                         <h3 id="display-course-title" ></h3>

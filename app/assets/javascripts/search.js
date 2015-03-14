@@ -5,13 +5,22 @@ var lastSearchResults;
 var displayNextIndex = 0;
 
 /* Take current displayNextIndex, and display n next courses */
-function displayNextSearchResults(n) {
-	for (var i = 0; i < n; i++) {
+function displayNextSearchResults(n) {	
+	var lim = lastSearchResults.length;	
+	for (var i = 0; i < n && displayNextIndex < lim; i++) {
 		var id = lastSearchResults[displayNextIndex][0];
 		createSearchResultBlockForId(id);
 		searchResultInfoForId(id);
 		displayNextIndex++;		
 	}
+
+	if (displayNextIndex < lim) {
+		document.getElementById("show-more-results").style.display = "block";
+	} else {
+		document.getElementById("show-more-results").style.display = "none";
+	}
+
+	document.getElementById("results-count").innerHTML = "Showing 1 - " + (displayNextIndex + 1) + " of " + lastSearchResults.length + " results";
 }
 
 
@@ -21,6 +30,7 @@ function createSearchResultBlockForId(id) {
 	var template = document.getElementById("search-result-template");
 	var clone = template.cloneNode(true);
 	clone.id = "search-result-" + id;
+	clone.style.display = "block";
 	template.parentNode.appendChild(clone);
 	clone.onclick = function() { 
 		$.ajax ({
@@ -64,6 +74,7 @@ function displaySearchResult(json) {
 		}
 	}
 }
+
 
 
 function courseInfoForId(id) {
