@@ -89,4 +89,5 @@ class Course < ActiveRecord::Base
     departments.first
   end
 
+
 end
