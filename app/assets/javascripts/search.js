@@ -36,7 +36,8 @@ function createSearchResultBlockForId(id) {
 		$.ajax ({
 			type: "POST",
 			url: "search/lookup",
-			data: $.param({id: id, authenticity_token: AUTH_TOKEN})
+			data: $.param({id: id, authenticity_token: AUTH_TOKEN}),
+			async: false
 		});
 	};
 }
