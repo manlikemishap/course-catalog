@@ -59,7 +59,7 @@ class SearchController < ApplicationController
       @results = Hash[@results.map {|key, value| [key, value]}]
 
       serendipity = params[:serendipity]
-      if false && params[:search].nil? && !serendipity.nil? && (serendipity = serendipity.to_i) > 0
+      if params[:search].nil? && !serendipity.nil? && (serendipity = serendipity.to_i) > 0
         @results = serendipitize(@results, serendipity)
       else
         @results = @results.to_a
