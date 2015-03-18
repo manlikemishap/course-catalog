@@ -12,7 +12,7 @@ var xlistings = document.getElementById("display-course-xlistings");
 xlistings.innerHTML	= "<%= @course.xlistings.join(', ') %>";
 
 var desc = document.getElementById("display-course-description");
-desc.innerHTML = "<%= @course.description %>";
+desc.innerHTML = "<%= escape_javascript @course.description %>";
 
 // Remove previously created divs
 var comps = document.getElementsByClassName("display-course-component");

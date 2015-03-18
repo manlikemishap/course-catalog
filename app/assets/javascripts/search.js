@@ -70,6 +70,14 @@ function displaySearchResult(json) {
 				children[i].innerHTML = json["div"];
 				break;
 			case "attributes":
+				var write = "";
+				attrs = ["q", "w", "d"];
+				for (var i = 0, attr = attrs[0]; i < 3; attr = attrs[++i]) {
+					if (json[attr]) {
+						write += attr.toUpperCase();
+					}
+				}
+				children[i].innerHTML = write;
 				break;
 		}
 	}

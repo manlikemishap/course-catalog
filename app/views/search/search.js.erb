@@ -1,6 +1,12 @@
 lastSearchResults = <%= @results.to_json %>;
 displayNextIndex = 0;
 
+// remove the welcome-box if it exists
+var welcome = document.getElementById("welcome-box");
+if (welcome) {
+	welcome.parentNode.removeChild(welcome);
+}
+
 // remove previous results
 var children = document.getElementById("search-result-template").parentNode.children
 
@@ -10,3 +16,8 @@ while (children.length > 1) {
 
 // Display first 20 results
 displayNextSearchResults(20);
+
+var searchResults = document.getElementById("search-results");
+if (searchResults.style.display == "none") {
+	searchResults.style.display = "block";
+}
