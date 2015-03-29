@@ -59,11 +59,13 @@ class SearchController < ApplicationController
       @results = Hash[@results.map {|key, value| [key, value]}]
 
       serendipity = params[:serendipity]
-      if params[:search].nil? && !serendipity.nil? && (serendipity = serendipity.to_i) > 0
+
+      if !params[:search].nil? && !serendipity.nil? && (serendipity = serendipity.to_i) > 0
         @results = serendipitize(@results, serendipity)
-      else
-        @results = @results.to_a
       end
+
+      @results = @results.to_a
+
     end
 
     #@results = @results[0..20].map { |id, score| [Course.find(id), score] }
@@ -102,9 +104,9 @@ class SearchController < ApplicationController
   private
 
   def serendipitize(results, serendipity)
-    limit = 30 # how many things ot return (not including serendipity)
+    limit = [30, results.size].min
 
-    # Take top 50 from @results
+    # Take top from @results
     temp = []
     i = 0
     low = 0 # used to figure out lower bound on the top <limit> scores
@@ -119,18 +121,17 @@ class SearchController < ApplicationController
 
     (limit / 10).times do |i|
       serendipity.times do
-        random = Course.find_by(id: rand(1 + Course.count))
-        if !random.nil?
-          if results[random].to_i < low # check it isnt in the top <limit> already
-            temp.insert(i * 10 + rand(10), random)
-            results[random] = -1 # mark it as a serendipity course
-          end
+        # get the course
+        random = 1 + rand(1067)
+        if !results.include?(random) || results[random].to_i < low # check it isnt in the top <limit> already
+          temp.insert(i * 10 + rand(10), random)
+          results[random] = -1 # mark it as a serendipity course
         end
       end
     end
 
     x = Hash.new
-    temp.each { |course| x[course] = @results[course] }
+    temp.each { |course| x[course] = results[course] }
     return x    
   end
 

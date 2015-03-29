@@ -20,7 +20,49 @@ function displayNextSearchResults(n) {
 		document.getElementById("show-more-results").style.display = "none";
 	}
 
-	document.getElementById("results-count").innerHTML = "Showing 1 - " + (displayNextIndex + 1) + " of " + lastSearchResults.length + " results";
+	if (lastSearchResults.length > 0) {
+		document.getElementById("results-count").innerHTML = "Showing 1 - " + (displayNextIndex) + " of " + lastSearchResults.length + " results";
+	} else {
+		document.getElementById("results-count").innerHTML = "No results found";
+	}
+}
+
+/* Create a row in the the display table for this course, and collapse
+   the other display ones if they exist */
+function displayBlockForId(id) {
+	var template = document.getElementById("display-course-template");
+	var clone = template.cloneNode(true);
+	clone.id = "display-course-" + id;
+	clone.style.display = "block";
+	template.parentNode.insertBefore(clone, template.parentNode.firstChild);
+	
+
+	// Iterate over other display-course-id blocks
+	var children = template.parentNode.children;
+	for (var i = 0; i < children.length; i++) {
+		if (children[i].id != "display-course-" + id && children[i].id != "display-course-template") {
+			collapseDisplayBlock(children[i]);
+		}
+	}
+
+	return clone;
+}
+
+
+/* Accepts a display-course-(id) div, and compacts it so that just
+	its title is visible */
+function collapseDisplayBlock(div) {
+
+	// The first childof this div is the title.
+	// it gets replaced with an h5 of the same text
+	var bigTitle = div.children[0];
+	var smallTitle = document.createElement("h4");
+	smallTitle.innerHTML = bigTitle.innerHTML;
+	bigTitle.parentNode.insertBefore(smallTitle, bigTitle);
+	bigTitle.parentNode.removeChild(bigTitle);
+
+	// now hide everything else
+	div.children[1].style.display = "none";
 }
 
 

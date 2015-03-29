@@ -1,9 +1,32 @@
 var el = document.getElementById("display-course");
 
 if (!el.style.display || el.style.display == "none") {
-	//el.style.display = "inline";
+	//el.style.display = "inline"; // uncomment to do the multi view
 	el.style.visibility = "visible";
+	el.style.display = "inline";
 }
+
+/*
+var display = displayBlockForId(<%= @course.id %>);
+var title = display.children[0];
+title.innerHTML = "<%= escape_javascript @course.title %>";
+
+// ignore naming conventions for now
+var children = display.children[1].children;
+for (var i = 0; i < children.length; i++) {
+	switch( children[i].className ) {
+		case "display-course-title": // won't happen anymore
+			children[i].innerHTML = "<%= escape_javascript @course.title %>";
+			break;
+		case "display-course-xlistings":
+			children[i].innerHTML = "<%= escape_javascript @course.xlistings.join(', ') %>";				
+			break;
+		case "display-course-description":
+			children[i].innerHTML = "<%= escape_javascript @course.description %>";
+			break;			
+	}
+}
+*/
 
 var title = document.getElementById("display-course-title");
 title.innerHTML = "<%= @course.title %>"
@@ -19,6 +42,7 @@ var comps = document.getElementsByClassName("display-course-component");
 while (comps.length > 0) {
 	comps[0].parentNode.removeChild(comps[0]);
 }
+
 
 <% @course.components.each do |component| %>
 	var compDiv = document.createElement("div");
@@ -41,3 +65,7 @@ while (comps.length > 0) {
 	el.appendChild(compDiv);
 
 <% end %>
+
+
+
+
