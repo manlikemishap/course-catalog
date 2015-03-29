@@ -125,3 +125,28 @@ function displaySearchResult(json) {
 		}
 	}
 }
+
+
+function setupCompare() {
+	var mainChart = document.getElementById("main-chart");
+	var children = mainChart.children;
+	for (var i = 0; i < children.length; i++) {
+		if (children[i].id != "compare-block-1") {
+			children[i].style.display = "none";
+		} else {
+			children[i].style.display = "inline";
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

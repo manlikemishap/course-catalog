@@ -3,6 +3,9 @@ class SearchController < ApplicationController
   def index
   end
 
+  def plan
+  end
+
   def search
     # Both selected or unselected - same thing
     semester = params[:spring].nil? ? "Fall" : "Spring" if params[:spring].to_i != params[:fall].to_i
@@ -12,6 +15,11 @@ class SearchController < ApplicationController
 
     # Map course to score
     @results = {}
+
+
+    #################
+    ## IF ONLY A SEMESTER IS CHOSEN, ALL ARE BLANK RESULTS!!!
+    #############################
 
     t1 = Time.now
 

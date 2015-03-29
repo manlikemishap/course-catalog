@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Catalog</title>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>Catalog - Williams College</title>
+
 </head>
+
+<!--header start-->
+<header class="header black-bg">
+	<div class="sidebar-toggle-box">
+	    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+	</div>
+	<!--logo start-->
+	<a href="index.html" class="logo" style = "margin: 0px"><h3><strong>WILLIAMS</strong> COURSE CATALOG</h3></a>
+	<a href="/" style="margin: 20px; margin-left: 50px;" class="logo">BROWSE</a>
+	<a href="/plan" style="margin: 20px;" class="logo">PLAN</a>
+	<!--logo end-->
+	<div class="nav notify-row" id="top_menu">
+	    <!--  notification start -->
+	    <!--  notification end -->
+	</div>
+	<div class="top-menu">
+	    <ul class="nav top-menu pull-right paddingright">
+	    </ul>
+	</div>
+</header>
+<!--header end-->
+
 <body>
 
 <%= yield %>
