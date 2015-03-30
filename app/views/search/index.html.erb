@@ -33,10 +33,23 @@
                   <div class = "col-sm-5">
                     <h4 style="margin: 0px">Semester</h4>
                   </div>
+
                   <div class ="col-sm-7">
+                      <%= radio_button_tag :semester, "Any", :checked => true %>
+                      <%= label :semester_any, "Any" %>
+
+                      <%= radio_button_tag :semester, "Fall" %>
+                      <%= label :semester_fall, "Fall" %>
+
+                      <%= radio_button_tag :semester, "Spring" %>
+                      <%= label :semester_spring, "Spring" %>                      
+                  </div>
+                  <!--
+                  
                     <%= check_box_tag :fall, "1", pre_fall %><%= label_tag :fall, "F" %>
                     <%= check_box_tag :spring, "1", pre_spring %><%= label_tag :spring, "S" %>  
                   </div>
+                  -->
                 </div>
 
                 <div class="row rowpadding">

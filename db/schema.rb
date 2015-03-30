@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20150121060319) do
     t.boolean  "w",                     limit: 1
     t.boolean  "q",                     limit: 1
     t.text     "description",           limit: 65535
+    t.text     "short_description",     limit: 65535
+    t.string   "teaser",                limit: 255
     t.string   "format",                limit: 255
     t.string   "eval",                  limit: 255
     t.string   "prereqs",               limit: 255

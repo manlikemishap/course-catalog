@@ -37,6 +37,7 @@
     {"name":"French", "abbrev":"RLFR"},
     {"name":"Geosciences", "abbrev":"GEOS"},
     {"name":"German", "abbrev":"GERM"},
+    {"name":"Global Studies", "abbrev":"GBST"},
     {"name":"History", "abbrev":"HIST"},
     {"name":"History of Science", "abbrev":"HSCI"},
     {"name":"Interdisciplinary Studies", "abbrev":"INTR"},

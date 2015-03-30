@@ -25,6 +25,8 @@ class CreateCourses < ActiveRecord::Migration
     	t.boolean :q
 
     	t.text :description
+        t.text :short_description
+        t.string :teaser
 
     	t.string :format
 
