@@ -54,6 +54,16 @@ a, a:hover, a:focus
     height: 100%;
 }
 
+.search-result-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.search-result-teaser {
+    font-size: 12px;
+    font-style: italic;
+}
+
 /* Bootstrap Modifications */
 
 .modal-header

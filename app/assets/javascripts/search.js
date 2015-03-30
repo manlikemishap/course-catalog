@@ -100,7 +100,11 @@ function searchResultInfoForId(id) {
 /* Callback function for searchResultInfoForId */
 function displaySearchResult(json) {
 	var loc = document.getElementById("search-result-" + json["id"]);
-	var children = loc.children;
+	//var children = loc.children;
+	loc.children[0].innerHTML = json["dept"] + json["number"];
+	loc.children[1].children[0].innerHTML = json["title"];
+	loc.children[1].children[1].innerHTML = json["teaser"];
+	/*
 	for (var i = 0; i < children.length; i++) {
 		switch (children[i].className) {
 			case "dept-num": 
@@ -124,6 +128,7 @@ function displaySearchResult(json) {
 				break;
 		}
 	}
+	*/
 }
 
 
